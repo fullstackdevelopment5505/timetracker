@@ -1,5 +1,3 @@
-# Intro
-> If you have any questions or need to communicate with me, please do so through email [jbennett@wilbergroup.com](mailto:jbennett@wilbergroup.com) or if you want to chat, [add me on telegram](https://telegram.me/jacobbennett) @jacobbennett.
 > 
 Thanks for taking the time to complete this code challenge. This represents real work that would be completed for this position. Your goal is to complete this task within two weeks of the time you receive it. Please keep track of your time and **give yourself a deadline of 10 hours**. You will be paid for your 10 hours of work at a rate of $50 an hour for this project. Do your best to complete all requirements, and feel free to reach out any time if you have any questions that you need answered. Let's get to it!
 
