@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
@@ -11,7 +14,8 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
-        "laravel/nova": "~3.0"
+        "laravel/nova": "~3.0",
+        "acme/report": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -54,6 +58,14 @@
         {
             "type": "composer",
             "url": "https://nova.laravel.com"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Report"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Report"
         }
     ],
     "config": {

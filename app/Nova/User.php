@@ -7,6 +7,7 @@ use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\BooleanGroup;
 
 class User extends Resource
 {
@@ -55,9 +56,30 @@ class User extends Resource
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
-            Text::make('roles')->sortable(),
+            BooleanGroup::make('roles')
+                ->fillUsing(function ($request, $model, $attribute, $requestAttribute) {
+                    $roles = json_decode($request->input($attribute));
 
-            Password::make('department')
+                    $save = [];
+                    foreach ($roles as $key => $value) {
+                        if ($value) $save[] = $key;
+                    }
+
+                    $model->{$attribute} = $save;
+                })
+                ->options([
+                    'user' => 'user',
+                    'admin' => 'admin',
+                    'manager' => 'manager'
+                ])
+                ->noValueText('')
+                ->onlyOnForms(),
+
+            Text::make('roles', function () {
+                return is_array($this->roles) ? implode(", ", $this->roles) : "";
+            })->sortable(),
+
+            Text::make('department')
                 ->onlyOnForms(),
 
             Password::make('Password')

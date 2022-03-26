@@ -40,7 +40,7 @@ class TimesheetController extends Controller
     {
         $timesheet = new Timesheet;
 
-        $timesheet->user_id = 12;
+        $timesheet->user_id = Auth::user()->id;
         $timesheet->activity_id = $request->activity_id;
         $timesheet->started_at = date("Y-m-d H:i:s");
 
