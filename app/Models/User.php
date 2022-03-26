@@ -22,4 +22,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'roles' => 'array',
     ];
+
+    public function isAdmin() {
+        return in_array("admin", $this->roles);
+    }
+
+    public function isManager() {
+        return in_array("manager", $this->roles);
+    }
+
+    public function isUser() {
+        return in_array("[]", $this->roles) || in_array("user", $this->roles);
+    }
 }
