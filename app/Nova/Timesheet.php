@@ -5,25 +5,26 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\Gravatar;
-use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\BelongsTo;
 
-class Activity extends Resource
+class Timesheet extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Activity::class;
+    public static $model = \App\Models\Timesheet::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -45,9 +46,15 @@ class Activity extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
 
-            Text::make('Name')
+            BelongsTo::make('user'),
+
+            BelongsTo::make('activity'),
+
+            DateTime::make('started_at')
+                ->sortable(),
+
+            DateTime::make('finished_at')
                 ->sortable()
-                ->rules('required', 'max:255'),
         ];
     }
 

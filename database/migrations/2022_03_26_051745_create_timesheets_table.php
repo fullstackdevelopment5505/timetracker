@@ -17,8 +17,8 @@ class CreateTimesheetsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->integer('activity_id');
-            $table->dateTime('started_at');
-            $table->dateTime('finished_at');
+            $table->datetime('started_at');
+            $table->timestamp('finished_at');
             $table->timestamps();
         });
     }

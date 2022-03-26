@@ -40,7 +40,6 @@ class TimesheetController extends Controller
     {
         $timesheet = new Timesheet;
 
-        // $timesheet->user_id = Auth::user()->id;
         $timesheet->user_id = 12;
         $timesheet->activity_id = $request->activity_id;
         $timesheet->started_at = date("Y-m-d H:i:s");
@@ -83,10 +82,10 @@ class TimesheetController extends Controller
      */
     public function update(Request $request, Timesheet $timesheet)
     {
-        $timesheet->finished_at = date("Y-m-d H:i:s");
+        $timesheet->touch();
 
         if ($timesheet->save()) {
-            return response(true);
+            return response("success");
         } else {
             return response("database insert failed", 500);
         }
