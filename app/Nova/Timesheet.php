@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Select;
+use Acme\Report\Report as Report;
 use Auth;
 
 class Timesheet extends Resource
@@ -120,7 +121,7 @@ class Timesheet extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [new Report];
     }
 
     /**

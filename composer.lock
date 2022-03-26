@@ -4,11 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "382648c4a7c241f0196baeb8eb987594",
+    "content-hash": "7b01a6cf1fa3ff946a41e8599774264a",
     "packages": [
         {
             "name": "acme/report",
-            "version": "dev-master",
+            "version": "dev-card",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/Report",
@@ -28,6 +28,78 @@
             "autoload": {
                 "psr-4": {
                     "Acme\\Report\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova card.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "apps/activity-report",
+            "version": "dev-card",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/ActivityReport",
+                "reference": "99a568628637e324eb1082f535116b901001ec6c"
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Apps\\ActivityReport\\CardServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Apps\\ActivityReport\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova card.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "apps/timesheet-report",
+            "version": "dev-card",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/TimesheetReport",
+                "reference": "706ee1480a5406d3857cf7e7385aef8a61e6bb7a"
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Apps\\TimesheetReport\\CardServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Apps\\TimesheetReport\\": "src/"
                 }
             },
             "license": [
