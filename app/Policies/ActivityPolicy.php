@@ -18,4 +18,5 @@ class ActivityPolicy extends BasePolicy
     {
         //
     }
+
 }

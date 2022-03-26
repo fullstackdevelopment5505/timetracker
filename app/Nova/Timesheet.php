@@ -9,6 +9,8 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Select;
+use Auth;
 
 class Timesheet extends Resource
 {
@@ -32,9 +34,25 @@ class Timesheet extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id'
     ];
+ 
+    /**
+     * Build an "index" query for the given resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if (Auth::user()->isManager())
+            return $query->select("timesheets.*")->join('users', 'users.id', '=', 'timesheets.user_id')->where('users.manager_guid', Auth::user()->guid);
 
+        if (Auth::user()->isAdmin())
+            return $query->select("timesheets.*");
+    }
+ 
     /**
      * Get the fields displayed by the resource.
      *
@@ -43,18 +61,54 @@ class Timesheet extends Resource
      */
     public function fields(Request $request)
     {
+        $fields = [
+            ID::make(__('ID'), 'id')->sortable(),
+        ];
+
+        if (Auth::user()->isManager()) {
+            $fields = array_merge(
+                $fields,
+                [
+                    Number::make('user', 'user_id')->displayUsing(function ($user_id) {
+                        return \App\Models\User::find($user_id)->email;
+                    }),
+                    Number::make('activity', 'activity_id')->displayUsing(function ($activity_id) {
+                        return \App\Models\Activity::find($activity_id)->name;
+                    }),
+                ]
+            );
+        }
+
+        if (Auth::user()->isAdmin()) {
+            $fields = array_merge(
+                $fields,
+                [
+                    BelongsTo::make('user'),
+                    BelongsTo::make('activity')
+                ]
+            );
+        }
+
+        return array_merge($fields, [
+            DateTime::make('started_at')->sortable(),
+            DateTime::make('finished_at')->sortable()
+        ]);
+    }
+
+    /**
+     * Get the fields displayed by the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function fieldsForUpdate(Request $request)
+    {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-
-            BelongsTo::make('user'),
-
-            BelongsTo::make('activity'),
-
-            DateTime::make('started_at')
-                ->sortable(),
-
-            DateTime::make('finished_at')
-                ->sortable()
+            Select::make('user', 'user_id')->options(\App\Models\User::pluck('email', 'id')),
+            Select::make('activity', 'activity_id')->options(\App\Models\Activity::pluck('name', 'id')),
+            DateTime::make('started_at')->sortable(),
+            DateTime::make('finished_at')->sortable()
         ];
     }
 

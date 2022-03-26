@@ -32,5 +32,11 @@ class TimesheetPolicy extends BasePolicy
     public function update(User $user, $model): bool
     {
         return $user->isManager() || $user->isAdmin();
-    }    
+    }
+ 
+    public function restore(User $user, $model): bool
+    {
+        return $user->isManager() || $user->isAdmin();
+    }
+
 }
