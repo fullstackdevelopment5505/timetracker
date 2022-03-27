@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-
+        redirect("timesheet");
     }
 
     public function export(Request $request) {

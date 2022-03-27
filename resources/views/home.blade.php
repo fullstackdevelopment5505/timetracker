@@ -52,6 +52,11 @@
             $('#start_btn').click(function() {
                 var activity_id = $('#activity').val();
 
+                if (current != 0) {
+                    alert("finish your current activity.");
+                    return;
+                }
+
                 $.ajax({
                     type: "post",
                     url: "{{ url('timesheet') }}",
@@ -60,15 +65,25 @@
                     },
                     success: function(data) {
                         current = data;
+
+                        alert("start success.");
                     },
                     error: function(data) {
-                        console.log("error", data)
+                        alert(`error ${data.status}. Please go console.`);
+
+                        console.log("error code", data.status)
+                        console.log("error msg", data.responseText)
                     }
                 })
             });
 
             $('#finish_btn').click(function() {
                 var activity_id = $('#activity').val();
+
+                if (current == 0) {
+                    alert("Please Start Button to start activity.");
+                    return;
+                }
 
                 $.ajax({
                     type: "put",
@@ -77,10 +92,14 @@
                         activity_id: activity_id
                     },
                     success: function(data) {
-                        console.log("success", data)
+                        current = 0;
+                        alert("stop success");
                     },
                     error: function(data) {
-                        console.log("error", data)
+                        alert(`error ${data.status}. Please go console.`);
+
+                        console.log("error code", data.status)
+                        console.log("error msg", data.responseText)
                     }
                 })
             });

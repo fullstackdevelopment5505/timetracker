@@ -38,11 +38,16 @@ class TimesheetController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'activity_id' => ['required', 'exists:App\Models\Activity,id', 'integer']
+        ]);
+        
         $timesheet = new Timesheet;
 
         $timesheet->user_id = Auth::user()->id;
         $timesheet->activity_id = $request->activity_id;
         $timesheet->started_at = date("Y-m-d H:i:s");
+        $timesheet->finished_at = date("Y-m-d H:i:s");
 
         if ($timesheet->save()) {
             return response($timesheet->id);
@@ -82,7 +87,9 @@ class TimesheetController extends Controller
      */
     public function update(Request $request, Timesheet $timesheet)
     {
-        $timesheet->touch();
+        // $timesheet->touch();
+
+        $timesheet->finished_at = date("Y-m-d H:i:s");
 
         if ($timesheet->save()) {
             return response("success");
