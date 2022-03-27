@@ -28,7 +28,7 @@ class User extends Authenticatable
     }
 
     public function isManager() {
-        return in_array("manager", $this->roles);
+        return in_array("manager", $this->roles) && !in_array("admin", $this->roles);
     }
 
     public function isUser() {
