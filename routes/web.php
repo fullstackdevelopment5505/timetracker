@@ -35,4 +35,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('timesheet', 'App\Http\Controllers\TimesheetController');
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('timesheet', 'App\Http\Controllers\TimesheetController');
+    Route::get('/export', "App\Http\Controllers\HomeController@export");
+});
+

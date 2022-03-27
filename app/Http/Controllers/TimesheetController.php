@@ -41,7 +41,7 @@ class TimesheetController extends Controller
         $request->validate([
             'activity_id' => ['required', 'exists:App\Models\Activity,id', 'integer']
         ]);
-        
+
         $timesheet = new Timesheet;
 
         $timesheet->user_id = Auth::user()->id;
