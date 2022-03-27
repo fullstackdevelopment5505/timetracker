@@ -257,6 +257,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['card'],
@@ -306,27 +307,9 @@ var render = function() {
         _vm._v("Click export button to export daily report to excel file.")
       ]),
       _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.filename,
-            expression: "filename"
-          }
-        ],
-        staticClass: "w-full form-control form-input form-input-bordered",
-        attrs: { type: "text" },
-        domProps: { value: _vm.filename },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.filename = $event.target.value
-          }
-        }
-      }),
+      _c("p", { staticClass: "mb-2 text-80" }, [
+        _vm._v("Manager can only export there user's daily report.")
+      ]),
       _vm._v(" "),
       !_vm.loading
         ? _c("div", { staticClass: "flex items-center mt-3" }, [

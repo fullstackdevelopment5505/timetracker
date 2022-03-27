@@ -3,7 +3,8 @@
         <div class="px-3 py-3">
             <!-- <h3>Daily Report</h3> -->
             <p class="mb-2 text-80">Click export button to export daily report to excel file.</p>
-            <input type="text" class="w-full form-control form-input form-input-bordered" v-model="filename">
+            <p class="mb-2 text-80">Manager can only export there user's daily report.</p>
+            <!-- <input type="text" class="w-full form-control form-input form-input-bordered" v-model="filename"> -->
             <div class="flex items-center mt-3" v-if=" ! loading">
                 <button @click="exportExcel()" class="btn btn-default btn-primary">Export</button>
             </div>
