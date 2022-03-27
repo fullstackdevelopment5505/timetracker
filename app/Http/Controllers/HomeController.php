@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Activity;
+
+use App\Exports\Report;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HomeController extends Controller
 {
@@ -24,8 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home')->with([
-            'activities' => Activity::all()
-        ]);
+
+    }
+
+    public function export(Request $request) {
+
+        return Excel::download(new Report, 'report.xlsx');
     }
 }

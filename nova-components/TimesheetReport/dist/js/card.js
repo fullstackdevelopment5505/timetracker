@@ -249,12 +249,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['card'],
-
+    data: function data() {
+        return {
+            loading: false,
+            email: null
+        };
+    },
     mounted: function mounted() {
-        //
+        console.log(this.card);
+    },
+
+    methods: {
+        exportExcel: function exportExcel() {
+            var _this = this;
+
+            this.loading = true;
+            axios.get('/nova-vendor/' + this.card.component + '/export', {
+                filename: this.filename
+            }).then(function (response) {
+                document.location.replace('/nova-vendor/' + _this.card.component + '/export');
+                _this.loading = false;
+                // const link = document.createElement('a');
+                // link.setAttribute('href', response.data);
+                // link.setAttribute('download', 'report.xlsx'); // Need to modify filename ...
+                // link.click();
+                // console.log(response.data);
+            }).catch(function (error) {
+                _this.loading = false;
+            });
+        }
     }
 });
 
@@ -266,17 +300,60 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "card",
-    { staticClass: "flex flex-col items-center justify-center" },
-    [
-      _c("div", { staticClass: "px-3 py-3" }, [
-        _c("h1", { staticClass: "text-center text-3xl text-80 font-light" }, [
-          _vm._v("Timesheet Report")
-        ])
-      ])
-    ]
-  )
+  return _c("card", { staticClass: "flex items-center" }, [
+    _c("div", { staticClass: "px-3 py-3" }, [
+      _c("p", { staticClass: "mb-2 text-80" }, [
+        _vm._v("Click export button to export daily report to excel file.")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.filename,
+            expression: "filename"
+          }
+        ],
+        staticClass: "w-full form-control form-input form-input-bordered",
+        attrs: { type: "text" },
+        domProps: { value: _vm.filename },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.filename = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      !_vm.loading
+        ? _c("div", { staticClass: "flex items-center mt-3" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-default btn-primary",
+                on: {
+                  click: function($event) {
+                    return _vm.exportExcel()
+                  }
+                }
+              },
+              [_vm._v("Export")]
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.loading
+        ? _c("div", { staticClass: "mt-3" }, [
+            _c("span", { staticClass: "font-bold dim text-80" }, [
+              _vm._v("exporting to excel file.")
+            ])
+          ])
+        : _vm._e()
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

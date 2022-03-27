@@ -57,8 +57,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            // new Help,
-            new \Apps\TimesheetReport\TimesheetReport
+            new Help,
         ];
     }
 
